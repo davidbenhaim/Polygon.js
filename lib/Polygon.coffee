@@ -164,18 +164,18 @@ class Polygon
     #Phase 2
     #Is the start point of the subject polygon inside the clip polygon?
     if clip_poly.isPointInPoly([subject_nodes[0].x, subject_nodes[0].y])
-      status = false
-    else
       status = true
+    else
+      status = false
     for node in subject_nodes
       if node.intersect
         node.entry = status
         status = !status
     #Is the start point of the clip polygon inside the subject polygon?
     if subject_poly.isPointInPoly([clip_nodes[0].x, clip_nodes[0].y])
-      status = false
-    else
       status = true
+    else
+      status = false
     for node in clip_nodes
       if node.intersect
         node.entry = status
@@ -223,9 +223,8 @@ class Polygon
       new_poly = [[current.x, current.y]]
       start = new_poly[0]
       loop
-        if !current.entry
+        if current.entry
           loop
-            #holes be here
             current = current.next
             new_poly.push [current.x, current.y]
             if current.intersect
@@ -275,8 +274,8 @@ class Polygon
       current = subject_nodes[0].getFirstIntersection()
       current.processed = true
       i++
-      new_poly = []
-      new_poly.push [current.x, current.y]
+      new_poly = [[current.x, current.y]]
+      start = new_poly[0]
       loop
         if current.entry
           loop
@@ -295,7 +294,7 @@ class Polygon
               current.processed = true
               break
         current = current.neighbor
-        if new_poly.length > 1 and new_poly[0][0] == new_poly[new_poly.length-1][0] and new_poly[0][1] == new_poly[new_poly.length-1][1]
+        if current.x == start[0] and current.y == start[1]#new_poly.length > 1 and new_poly[0][0] == new_poly[new_poly.length-1][0] and new_poly[0][1] == new_poly[new_poly.length-1][1]
           break
       output += "paper.path(\"#{@toSVG(_.flatten(new_poly))}\").attr({stroke:'green', fill: 'green'});\n"
       results.push new Polygon _.flatten(new_poly)

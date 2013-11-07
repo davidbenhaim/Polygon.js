@@ -60,5 +60,5 @@ describe "Polygon", ->
     it "should have a result", ->
       square_subj = (new Polygon [0,0, 10,0, 10,10, 0,10]).translate(50,50).scale(5,5)
       square_clip = (new Polygon [-1,-1, 5,-1, 5,5, -1,5]).translate(50,50).scale(5,5)
-      paper_subj.union(paper_clip).should.not.have.length(0)
-      square_subj.union(square_clip).should.not.have.length(0)
+      paper_subj.intersection(paper_clip).should.not.have.length(0)
+      square_subj.intersection(square_clip).should.not.have.length(0)

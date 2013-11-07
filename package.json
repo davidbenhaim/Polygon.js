@@ -58,5 +58,7 @@
     "grunt-mocha": "~0.4.1",
     "should": "~2.0.2",
     "lodash": "~2.2.1",
+    "priorityqueuejs": "~0.1.0",
+    "bintrees": "~1.0.0"
   }
 }
